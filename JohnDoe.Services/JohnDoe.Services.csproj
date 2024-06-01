@@ -8,12 +8,16 @@
 
   <ItemGroup>
     <Folder Include="Http\" />
-    <Folder Include="RabbitMq\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.2.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JohnDoe.Core\JohnDoe.Core.csproj" />
   </ItemGroup>
 
 </Project>

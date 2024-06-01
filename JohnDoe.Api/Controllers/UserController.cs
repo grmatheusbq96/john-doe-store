@@ -1,17 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JohnDoe.Core.Interfaces.RabbitMq;
+using JohnDoe.Core.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JohnDoe.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class UserController : ControllerBase
+public class UserController(IRabbitMqService rabbit) : ControllerBase
 {
-    // GET: api/<UserController>
-    [HttpGet]
-    public IEnumerable<string> Get()
-    {
-        return new string[] { "value1", "value2" };
-    }
+    private readonly IRabbitMqService _rabbitMqService = rabbit;
+    //// GET: api/<UserController>
+    //[HttpGet]
+    //public IEnumerable<string> Get()
+    //{
+    //    return new string[] { "value1", "value2" };
+    //}
 
     //// GET api/<UserController>/5
     //[HttpGet("{id}")]
@@ -20,11 +23,12 @@ public class UserController : ControllerBase
     //    return "value";
     //}
 
-    //// POST api/<UserController>
-    //[HttpPost]
-    //public void Post([FromBody] string value)
-    //{
-    //}
+    // POST api/<UserController>
+    [HttpPost]
+    public void Post([FromBody] UserModel user)
+    {
+        _rabbitMqService.AddUserToQueue(user);
+    }
 
     //// PUT api/<UserController>/5
     //[HttpPut("{id}")]
